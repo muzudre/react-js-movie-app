@@ -81,16 +81,16 @@ class Home extends Component {
             <div className='rmdb-home' >
                 {heroImage ?
                     <div>
-                        <HeroImage
+                        {searchTerm ? null : <HeroImage
                             image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${heroImage.backdrop_path}`}
                             title={heroImage.original_title}
                             text={heroImage.overview}
-                        />
+                        />}
                         <SearchBar callback={this.searchItems} />
                     </div> : null}
                 <div className='rmdb-home-grid'>
                     <FourColGrid
-                        header={searchTerm ? 'Search Result' : 'Popular Movies'}
+                        header={searchTerm ? 'Search Result' : 'Trending Movies'}
                         loading={loading}
                     >
                         {movies.map((element, i) => {

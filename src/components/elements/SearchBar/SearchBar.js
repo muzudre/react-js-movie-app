@@ -19,6 +19,10 @@ class SearchBar extends Component {
         }, 500)
     }
 
+    cleanSearch = () => {
+        this.setState({ value: '' })
+    }
+
     render() {
         return (
             <div className='rmdb-searchbar'>
@@ -27,10 +31,11 @@ class SearchBar extends Component {
                     <input
                         type={'text'}
                         className='rmdb-searchbar-input'
-                        placeholder='Search'
+                        placeholder='Search by name'
                         onChange={this.doSearch}
                         value={this.state.value}
                     />
+                    {this.state.value && <FontAwesome className='rmdb-fa-clean' name="close" size='2x' onClick={this.cleanSearch} />}
                 </div>
             </div>
         )

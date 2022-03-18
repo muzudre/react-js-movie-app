@@ -9,7 +9,7 @@ const App = () => {
     return (
         <BrowserRouter basename='/'>
             <React.Fragment>
-                <Header />
+                {/* <Header /> */}
                 <Switch>
                     <Route path="/" component={Home} exact />
                     <Route path="/:movieId" component={Movie} exact />

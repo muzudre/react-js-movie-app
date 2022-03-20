@@ -16,10 +16,17 @@
   overflow: hidden;
 }
 
-.rmdb-logo {
+/* .rmdb-logo {
   width: 250px;
   margin-top: 11px;
   float: left;
+} */
+
+.rmdb-logo {
+  font-family: "Ubuntu", sans-serif;
+  width: 250px;
+  float: left;
+  color: white;
 }
 
 .rmdb-tmdb-logo {

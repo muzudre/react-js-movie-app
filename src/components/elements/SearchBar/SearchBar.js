@@ -21,6 +21,7 @@ class SearchBar extends Component {
 
     cleanSearch = () => {
         this.setState({ value: '' })
+        window.location.reload(true)
     }
 
     render() {

@@ -78,7 +78,7 @@ class Home extends Component {
     }
 
     render() {
-        const { movies, heroImage, loading, currentPage, totalPages, searchTerm } = this.state
+        const { movies, heroImage, loading, searchTerm } = this.state
         return (
             <div className='rmdb-home' >
                 {heroImage ?

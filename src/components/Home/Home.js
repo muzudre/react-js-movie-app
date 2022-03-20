@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import InfiniteScroll from "react-infinite-scroll-component";
 import { API_KEY, API_URL, IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from '../../config'
 import HeroImage from '../elements/HeroImage/HeroImage'
 import SearchBar from '../elements/SearchBar/SearchBar'
 import FourColGrid from '../elements/FourColGrid/FourColGrid';
 import MovieThumb from '../elements/MovieThumb/MovieThumb';
-import LoadMoreBtn from '../elements/LoadMoreBtn/LoadMoreBtn';
 import Spinner from '../elements/Spinner/Spinner';
 import './Home.css'
 
@@ -72,7 +72,9 @@ class Home extends Component {
         } else {
             endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${this.state.searchTerm}&page=${this.state.currentPage + 1}`
         }
-        this.fetchItems(endpoint)
+        setTimeout(() => {
+            this.fetchItems(endpoint)
+        }, 1500);
     }
 
     render() {
@@ -89,23 +91,27 @@ class Home extends Component {
                         <SearchBar callback={this.searchItems} />
                     </div> : null}
                 <div className='rmdb-home-grid'>
-                    <FourColGrid
-                        header={searchTerm ? 'Search Result' : 'Trending Movies'}
-                        loading={loading}
+                    <InfiniteScroll
+                        dataLength={movies.length}
+                        next={this.loadMoreItems}
+                        hasMore={true}
+                        loader={<Spinner />}
                     >
-                        {movies.map((element, i) => {
-                            return <MovieThumb
-                                key={i}
-                                clickable={true}
-                                image={element.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}` : './images/no_image.jpg'}
-                                movieId={element.id}
-                                movieName={element.original_title}
-                            />
-                        })}
-                    </FourColGrid>
-                    {loading ? <Spinner /> : null}
-                    {(currentPage <= totalPages && !loading) ?
-                        <LoadMoreBtn text="Load More" onClick={this.loadMoreItems} /> : null}
+                        <FourColGrid
+                            header={searchTerm ? 'Search Result' : 'Trending Movies'}
+                            loading={loading}
+                        >
+                            {movies.map((element, i) => {
+                                return <MovieThumb
+                                    key={i}
+                                    clickable={true}
+                                    image={element.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}` : './images/no_image.jpg'}
+                                    movieId={element.id}
+                                    movieName={element.original_title}
+                                />
+                            })}
+                        </FourColGrid>
+                    </InfiniteScroll>
                 </div>
             </div>
         )
